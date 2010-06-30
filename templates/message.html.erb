@@ -1,0 +1,63 @@
+<p>
+	<%= @desc %>
+</p>
+<% if @parameters %>
+<div class="parameters">
+	<h4>Resource Parameter</h4>
+	<table>
+		<thead>
+			<tr>
+				<td>Name</td>
+				<td>Type</td>
+				<td>Default</td>
+				<td>Optional</td>
+				<td>Example</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+		<% for parameter in @parameters do %>
+			<tr>
+				<%= parameter.to_html(self) %>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
+</div>
+<% end %>
+<% if @headers %>
+<div class="headers">
+	<h4>HTTP Header</h4>
+	<table>
+		<thead>
+			<tr>
+				<td>Name</td>
+				<td>Type</td>
+				<td>Default</td>
+				<td>Optional</td>
+				<td>Example</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+		<% for header in @headers do %>
+			<tr>
+				<%= header.to_html(self) %>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
+</div>
+<% end %>
+<% if @content %>
+<div class="content">
+	<h4>Content</h4>
+	<%= @content %>
+</div>
+<% end %>
+<% if @example %>
+<div class="example">
+	<h4>Example</h4>
+	<%= @example.to_html(self) %>
+</div>
+<% end %>

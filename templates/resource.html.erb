@@ -1,0 +1,14 @@
+<h2><%= @method.to_s.upcase %>: 
+		<span class="path"><%= highlighted_path %></span>
+</h2>
+<p>
+	<%= @desc %>
+</p>
+<div class="request">
+	<h3>Request</h3>
+	<%= @request.to_html(self) %>
+</div>
+<div class="response">
+	<h3>Response</h3>
+	<%= @response.to_html(self) %>
+</div>

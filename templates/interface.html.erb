@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title><%= @name %> - Interface</title>
+  </head>
+  <body>
+		<h1><%= @name %> - Interface</h1>
+		<div class="resources">
+    <% for resource in @resources do %>
+			<div class="resource">
+	    	<%= resource.to_html(self) %>
+	    </div>
+    <% end %>
+		</div>
+  </body>
+</html>
