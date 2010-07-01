@@ -7,12 +7,12 @@
 	<table>
 		<thead>
 			<tr>
-				<td>Name</td>
-				<td>Type</td>
-				<td>Default</td>
-				<td>Optional</td>
-				<td>Example</td>
-				<td>Description</td>
+				<td class="name">Name</td>
+				<td class="type">Type</td>
+				<td class="default">Default</td>
+				<td class="optional">Optional</td>
+				<td class="example">Example</td>
+				<td class="description">Description</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,12 +31,12 @@
 	<table>
 		<thead>
 			<tr>
-				<td>Name</td>
-				<td>Type</td>
-				<td>Default</td>
-				<td>Optional</td>
-				<td>Example</td>
-				<td>Description</td>
+				<td class="name">Name</td>
+				<td class="type">Type</td>
+				<td class="default">Default</td>
+				<td class="optional">Optional</td>
+				<td class="example">Example</td>
+				<td class="description">Description</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -52,7 +52,11 @@
 <% if @content %>
 <div class="content">
 	<h4>Content</h4>
-	<%= @content %>
+	<% if @content.is_a? Array %>
+	  Array of <a href="<%= @content.first.to_path %>"><%= @content.first %></a>
+	<% else %>
+	  <a href="<%= @content.to_path %>"><%= @content %></a>
+	<% end %>
 </div>
 <% end %>
 <% if @example %>

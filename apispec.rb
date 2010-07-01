@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'ap'
 require 'erb'
 require 'coderay'
 
@@ -27,7 +26,7 @@ module APISpec
       @name = value
     end
   
-    def type(value)
+    def type(value)      
       @type = value
     end
   
@@ -48,17 +47,22 @@ module APISpec
     end
     
     def to_html(message)
-      Generator.template(binding, "field.html.erb")
+      Generator.template(binding, :field)
     end
   end
 
   class Object
     def initialize(&block)
+      @fields = []
       instance_eval(&block)
     end
 
     def name(value)
       @name = value
+    end
+
+    def desc(value)
+      @desc = value
     end
   
     def fields(*value)
@@ -67,6 +71,18 @@ module APISpec
   
     def example(format, value)
       @example = Example.new(format, value)
+    end
+
+    def to_html(message)
+      Generator.template(binding, :object)
+    end
+
+    def to_s
+      @name
+    end
+
+    def to_path
+      "Object #{@name}.html"
     end
   end
   
@@ -80,7 +96,7 @@ module APISpec
     end
 
     def params(*value)
-      @params = value
+      @parameters = value
     end
 
     def desc(value)
@@ -97,7 +113,7 @@ module APISpec
     
     def to_html(resource)
       @resource = resource
-      Generator.template(binding, "message.html.erb")
+      Generator.template(binding, :message)
     end
   end
 
@@ -121,14 +137,14 @@ module APISpec
     end
     
     def highlighted_path
-      "#{@interface.base_uri}/#{@path}".gsub(/:[^\/]+/) do |value|
+      "#{@interface.base_uri}/#{@path}".gsub(/:[^\/0-9][^\/]*/) do |value|
         "<span class=\"parameter\">#{value}</span>"
       end
     end
     
     def to_html(interface)
       @interface = interface
-      Generator.template(binding, "resource.html.erb")
+      Generator.template(binding, :resource)
     end
   end
 
@@ -145,9 +161,21 @@ module APISpec
     def base_uri(value = nil)
       @base_uri ||= value
     end
-  
+
     def get(path, &block)
       http(:get, path, &block)
+    end
+
+    def put(path, &block)
+      http(:put, path, &block)
+    end
+
+    def post(path, &block)
+      http(:post, path, &block)
+    end
+
+    def delete(path, &block)
+      http(:delete, path, &block)
     end
   
     def http(method, path, &block)
@@ -155,23 +183,74 @@ module APISpec
       @resources << resource
     end
     
-    def to_html
-      Generator.template(binding, "interface.html.erb")
+    def to_html(generator)
+      Generator.template(binding, :interface)
+    end
+    
+    def to_s
+      @name
+    end
+    
+    def to_path
+      "Interface #{@name}.html"
     end
   end
   
   module Generator
     def self.template(object, template_path)
-      template = ERB.new(File.read("templates/#{template_path}"))
+      template = ERB.new(File.read("templates/#{template_path}.html.erb"))
       template.result(object)
     end
   
-    def self.create(path, interface)
-      ap interface
-      
-      File.open(path, "w") do |file|
-        file.write(interface.to_html)
+    def self.create(path, htmlable)
+      File.open("#{path}/#{htmlable.to_path}", "w") do |file|
+        file.write(htmlable.to_html(self))
       end
+    end
+    
+    def self.frame(root_path, interfaces, objects)
+      puts "API Specification Documentation Generator"
+      puts("=" * 50)
+      puts " * create folders and move static rescoures..."
+      rm_rf root_path
+      mkdir root_path
+      cp "templates/style.css", root_path
+      cp "templates/links.css", root_path
+      cp "templates/stripe.png", root_path
+      @first_interface = interfaces.first
+      @interfaces = interfaces
+      @objects = objects
+      puts " * create index frame..."
+      File.open("#{root_path}/index.html", "w") do |file|
+        file.write(template(binding, :index))
+      end
+      puts " * create links page..."
+      File.open("#{root_path}/links.html", "w") do |file|
+        file.write(template(binding, :links))
+      end
+      puts " * create interfaces..."
+      for interface in interfaces do
+        puts " ** interface #{interface}..."
+        create root_path, interface
+      end
+      puts " * create objects..."
+      for object in objects do
+        puts " ** object #{interface}..."
+        create root_path, object
+      end
+      puts " * done"
+    end
+    
+    def self.rm_rf(path)
+      system "rm -rf #{path}"
+    end
+    
+    def self.mkdir(path)
+      system "mkdir #{path}"
+    end
+    
+    def self.cp(from, to)
+      system "cp #{from} #{to}"
     end
   end
 end

@@ -1,6 +1,13 @@
-<td><%= @name %></td>
-<td><%= @type %></td>
-<td><%= @default %></td>
-<td><%= @optional ? "YES" : "NO" %></td>
-<td><%= @example %></td>
-<td><%= @desc %></td>
+<td class="name"><%= @name %></td>
+<td class="type">
+  <% if @type.is_a? String %>
+    <% @type = Objects.const_get(@type) %>
+    <a href="<%= @type.to_path %>" target="content"><%= @type %></a>
+  <% else %>
+    <%= @type %>
+  <% end %>
+</td>
+<td class="default"><%= @default %></td>
+<td class="optional"><%= @optional ? "YES" : "NO" %></td>
+<td class="examle"><%= @example %></td>
+<td class="description"><%= @desc %></td>
