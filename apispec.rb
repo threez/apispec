@@ -288,7 +288,7 @@ module APISpec
       end
       puts " * create objects..."
       for object in objects do
-        puts " ** object #{interface}..."
+        puts " ** object #{object}..."
         create root_path, object
       end
       puts " * done"
