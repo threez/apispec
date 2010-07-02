@@ -54,6 +54,20 @@ h1 {
   margin: 0px;
   padding: 5px;
 }
+
+.resources .resource .response h3 .code {
+  font-family: monospace;
+}
+.resources .resource .response h3 .ok {
+  color: green;
+}
+.resources .resource .response h3 .warn {
+  color: yellow;
+}
+.resources .resource .response h3 .error {
+  color: red;
+}
+
 .resources .resource .request h4, .resources .resource .response h4 {
   margin: 5px 0px 0px 0px;
   border-bottom: 1px solid #212121;
