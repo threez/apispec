@@ -1,24 +1,27 @@
-<h2>
+<% resid = "res-#{@method}-#{Time.now.to_f}".gsub(".", "-") %>
+<h2 onclick="$('#<%= resid %>').toggle(2)" style="cursor: pointer;">
   <span class="method"><%= @method.to_s.upcase %></span>
 	<span class="path"><%= highlighted_path %></span>
 </h2>
-<p>
-	<%= @desc %>
-</p>
-<% if @request %>
-<div class="request">
-	<h3>Request</h3>
-	<%= @request.to_html(self) %>
+<div id="<%= resid %>" style="display: none">
+  <p>
+  	<%= @desc %>
+  </p>
+  <% if @request %>
+  <div class="request">
+  	<h3>Request</h3>
+  	<%= @request.to_html(self) %>
+  </div>
+  <% end %>
+  <% for http_code in @response.keys.sort do %>
+  <%     response = @response[http_code] %>
+  <div class="response">
+  	<h3>
+  	  <span class="code <%= (http_code >= 400) ? :error : ((http_code >= 300) ? :warn : :ok) %>">
+  	    <%= http_code %>
+  	  </span> Response (<%= APISpec::HTTP_STATUS_CODES[http_code] %>)
+  	</h3>
+  	<%= response.to_html(self) %>
+  </div>
+  <% end %>
 </div>
-<% end %>
-<% for http_code in @response.keys.sort do %>
-<%     response = @response[http_code] %>
-<div class="response">
-	<h3>
-	  <span class="code <%= (http_code >= 400) ? :error : ((http_code >= 300) ? :warn : :ok) %>">
-	    <%= http_code %>
-	  </span> Response (<%= APISpec::HTTP_STATUS_CODES[http_code] %>)
-	</h3>
-	<%= response.to_html(self) %>
-</div>
-<% end %>

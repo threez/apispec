@@ -269,6 +269,7 @@ module APISpec
       mkdir_p root_path
       cp "templates/style.css", root_path
       cp "templates/links.css", root_path
+      cp "templates/jquery.min.js", root_path
       cp "templates/stripe.png", root_path
       @first_interface = interfaces.first
       @interfaces = interfaces
