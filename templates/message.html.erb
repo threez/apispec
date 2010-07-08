@@ -53,7 +53,7 @@
 <div class="content">
 	<h4>Content</h4>
 	<% if @content.is_a? Array %>
-	  Array of <a href="<%= @content.first.to_path %>"><%= @content.first %></a>
+	  Array of <a href="<%= @content.first.to_path %>"><%= @content.first %></a> Objects
 	<% else %>
 	  <a href="<%= @content.to_path %>"><%= @content %></a>
 	<% end %>

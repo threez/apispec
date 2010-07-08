@@ -1,9 +1,8 @@
-<% resid = "res-#{@method}-#{Time.now.to_f}".gsub(".", "-") %>
-<h2 onclick="$('#<%= resid %>').toggle(2)" style="cursor: pointer;">
+<h2 onclick="$('#<%= uid %>').toggle(2)" style="cursor: pointer;">
   <span class="method"><%= @method.to_s.upcase %></span>
 	<span class="path"><%= highlighted_path %></span>
 </h2>
-<div id="<%= resid %>" style="display: none">
+<div id="<%= uid %>" style="display: none">
   <p>
   	<%= @desc %>
   </p>

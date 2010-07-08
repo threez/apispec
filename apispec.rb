@@ -189,6 +189,10 @@ module APISpec
       @response[http_code] = Message.new(&block)
     end
     
+    def uid
+      "#{@method}-#{@path}".gsub(/[^a-zA-Z0-9]/, "-").gsub(/[-]+/, "-")
+    end
+    
     def highlighted_path
       "#{@interface.base_uri}/#{@path}".gsub(/:[^\/0-9][^\/]*/) do |value|
         "<span class=\"parameter\">#{value}</span>"
