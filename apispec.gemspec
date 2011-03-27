@@ -4,7 +4,7 @@ require "apispec/version"
 Gem::Specification.new do |s|
   s.name        = 'apispec'
   s.version     = APISpec::VERSION.dup
-  s.date        = Time.now("%Y-%M-%d")
+  s.date        = Time.now
   s.summary     = "A ruby based http/rest documentation generator"
   s.email       = "vilandgr+github@googlemail.com"
   s.homepage    = "http://github.com/threez/apispec/"
@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   s.test_files    = Dir['test/**/*'] + Dir['spec/**/*']
   s.executables   = Dir['bin/*'].map { |f| File.basename(f) }
   s.require_paths = ["lib"]
-  
   
   ## Make sure you can build the gem on older versions of RubyGems too:
   s.rubygems_version = APISpec::VERSION.dup

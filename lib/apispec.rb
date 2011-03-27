@@ -9,7 +9,7 @@ rescue LoadError
   require 'redcloth'
 end
 
-%w(http example node field object message resource 
+%w(http version example node field object message resource 
    interface namespace generator).each do |name|
   require File.join(File.dirname(__FILE__), "apispec", name)
 end
