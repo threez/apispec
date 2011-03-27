@@ -1,13 +1,24 @@
-<td class="name"><%= @name %></td>
-<td class="type">
-  <% if @type.is_a? String %>
-    <% @type = Objects.const_get(@type) %>
-    <a href="<%= @type.to_path %>" target="content"><%= @type %></a>
-  <% else %>
-    <%= @type %>
+<div class="field">
+  <div class="name">
+    <% if @optional %><div class="optional">optional</div><% end %>
+    <% if @default %>
+      <div class="default">Default: <span><%= @default %></span></div>
+    <% end %>
+    <% if @type.respond_to? :to_path %>
+      <span class="type">
+        (<a href="<%= @type.to_path %>" target="content"><%= @type.full_name %></a>)
+      </span> <span class="name"><%= @name %></span>
+    <% else %>
+      <span class="type">(<%= @type %>)</span> <span class="name"><%= @name %></span>
+    <% end %>
+  </div>
+  <% if @example %>
+    <div class="example">
+    	<span>example</span>
+      <code><%= @example %></code>
+    </div>
   <% end %>
-</td>
-<td class="default"><%= @default %></td>
-<td class="optional"><%= @optional ? "YES" : "NO" %></td>
-<td class="examle"><%= @example %></td>
-<td class="description"><%= @desc %></td>
+  <div class="description">
+    <%= RedCloth.new(@desc || "").to_html %>
+  </div>
+</div>

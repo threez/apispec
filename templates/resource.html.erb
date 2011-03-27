@@ -4,23 +4,23 @@
 </h2>
 <div id="<%= uid %>" style="display: none">
   <p>
-  	<%= @desc %>
+  	<%= RedCloth.new(@desc || "").to_html %>
   </p>
   <% if @request %>
-  <div class="request">
+  <div class="request message">
   	<h3>Request</h3>
-  	<%= @request.to_html(self) %>
+  	<%= @request.to_html(@generator, self) %>
   </div>
   <% end %>
   <% for http_code in @response.keys.sort do %>
   <%     response = @response[http_code] %>
-  <div class="response">
+  <div class="response message">
   	<h3>
   	  <span class="code <%= (http_code >= 400) ? :error : ((http_code >= 300) ? :warn : :ok) %>">
-  	    <%= http_code %>
-  	  </span> Response (<%= APISpec::HTTP_STATUS_CODES[http_code] %>)
+  	    <%= http_code %></span>
+  	  <span>Response (<%= APISpec::HTTP_STATUS_CODES[http_code] %>)</span>
   	</h3>
-  	<%= response.to_html(self) %>
+  	<%= response.to_html(@generator, self) %>
   </div>
   <% end %>
 </div>

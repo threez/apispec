@@ -1,0 +1,108 @@
+#!/usr/bin/env ruby
+require 'optparse'
+
+# grab the project root for tempaltes and the lib
+project_root = File.join(File.dirname(__FILE__), "..")
+
+require File.expand_path(File.join(project_root, "lib", "apispec"))
+
+# the default tempate dir
+template_dir = File.join(project_root, "templates")
+resource_dir = File.join(project_root, "resources")
+
+class DirectoryError < StandardError; end
+def require_directory!(dir)
+  dir = File.expand_path(dir)
+  raise DirectoryError.new("directory #{dir} doesn't exist!") unless File.exist? dir
+  dir
+end
+
+options = {
+  :workspace => File.expand_path("."),
+  :template => File.expand_path(template_dir),
+  :output => File.expand_path("apidoc"),
+  :resource => File.expand_path(resource_dir)
+}
+parser = nil
+
+begin
+  parser = OptionParser.new do |opts|
+    opts.banner = "Usage: #{$0} [options]"
+    opts.version = APISpec::VERSION
+  
+    opts.separator ""
+    opts.separator "No existing project options:"
+  
+    opts.on("-c", "--create <name>", "create a new project") do |name|
+      options[:create] = name
+    end
+  
+    opts.separator ""
+    opts.separator "Project options:"
+
+    opts.on("-w", "--workspace <dir>", 
+            "The directory containing the source files (default: .)") do |dir|
+      options[:workspace] = require_directory!(dir)
+    end
+  
+    opts.on("-t", "--template <dir>", 
+            "The template directory (default: bundled with apispec)") do |dir|
+      options[:template] = require_directory!(dir)
+    end
+    
+    opts.on("-r", "--rescoure <dir>", 
+            "The resource directory (default: bundled with apispec)") do |dir|
+      options[:template] = require_directory!(dir)
+    end
+    
+    opts.on("-p", "--print", 
+            "The resource directory (default: bundled with apispec)") do
+      options[:print] = true
+    end
+
+    opts.on("-o", "--output <dir>", 
+            "The output directory (default: apidoc)") do |dir|
+      options[:output] = File.expand_path(dir)
+    end
+
+    # opts.on("-s", "--server <port>", "Don't create a output folder start a server on given port") do |dir|
+    #   options[:output] = dir
+    # end
+
+    opts.separator ""
+    opts.separator "Common options:"
+  
+    opts.on("-v", "--verbose", "Run verbosely") do
+      options[:verbose] = true
+    end
+  end
+  parser.parse!
+rescue DirectoryError => ex
+  STDERR.puts "Invalid Argument: #{ex.message}"
+  STDERR.puts parser.help
+  exit 3
+rescue OptionParser::ParseError => ex
+  STDERR.puts ex.message
+  STDERR.puts parser.help
+  exit 2
+end
+
+if options[:print]
+  # just print the structure
+  generator = APISpec::Generator.new(options)
+  generator.parse_files!
+  puts generator.namespace.print_tree()
+elsif dir = options[:create]
+  # create a new project based on the example project
+  new_dir = File.expand_path(dir)
+  FileUtils.mkdir_p(new_dir)
+  FileUtils.cp_r(Dir[File.expand_path(File.join(project_root, "example", "*"))], 
+                 new_dir)
+else
+  begin
+    APISpec::Generator.new(options).start!
+  rescue APISpec::Namespace::ReferenceError => ex
+    STDERR.puts ex.message
+    exit 4
+  end
+end

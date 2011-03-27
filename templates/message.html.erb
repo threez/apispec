@@ -1,61 +1,32 @@
-<p>
-	<%= @desc %>
-</p>
-<% if @parameters %>
+<p><%= RedCloth.new(@desc || "").to_html %></p>
+<% if @parameters.any? %>
 <div class="parameters">
 	<h4>Resource Parameter</h4>
-	<table>
-		<thead>
-			<tr>
-				<td class="name">Name</td>
-				<td class="type">Type</td>
-				<td class="default">Default</td>
-				<td class="optional">Optional</td>
-				<td class="example">Example</td>
-				<td class="description">Description</td>
-			</tr>
-		</thead>
-		<tbody>
-		<% for parameter in @parameters do %>
-			<tr>
-				<%= parameter.to_html(self) %>
-			</tr>
-		<% end %>
-		</tbody>
-	</table>
+	<% for parameter in @parameters do %>
+		<%= parameter.to_html(@generator) %>
+	<% end %>
 </div>
 <% end %>
-<% if @headers %>
+<% if @headers.any? %>
 <div class="headers">
 	<h4>HTTP Header</h4>
-	<table>
-		<thead>
-			<tr>
-				<td class="name">Name</td>
-				<td class="type">Type</td>
-				<td class="default">Default</td>
-				<td class="optional">Optional</td>
-				<td class="example">Example</td>
-				<td class="description">Description</td>
-			</tr>
-		</thead>
-		<tbody>
-		<% for header in @headers do %>
-			<tr>
-				<%= header.to_html(self) %>
-			</tr>
-		<% end %>
-		</tbody>
-	</table>
+	<% for header in @headers do %>
+		<%= header.to_html(@generator) %>
+	<% end %>
 </div>
 <% end %>
-<% if @content %>
+<% if (@object || @array) || @content_desc %>
 <div class="content">
-	<h4>Content</h4>
-	<% if @content.is_a? Array %>
-	  Array of <a href="<%= @content.first.to_path %>"><%= @content.first %></a> Objects
-	<% else %>
-	  <a href="<%= @content.to_path %>"><%= @content %></a>
+	<% if @content_desc %>	
+		<h4>Description</h4>
+		<%= RedCloth.new(@content_desc || "").to_html %>
+	<% end %>
+	<% if @object %>
+		<h4>Object</h4>
+		<a href="<%= @object.to_path %>"><%= @object.full_name %></a>
+	<% elsif @array %>
+		<h4>Array</h4>
+		Array of <a href="<%= @array.to_path %>"><%= @array.full_name %></a> Objects
 	<% end %>
 </div>
 <% end %>

@@ -1,0 +1,42 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  font-family: "Helvetica";
+  overflow-x: hidden;
+  background: #efefef;
+}
+
+h2 {
+  color: white;
+  padding: 5px;
+  font-size: 14pt;
+  
+  border-bottom: 1px solid black;
+  background: #3714B0;
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0, rgb(54,20,176)),
+    color-stop(1, rgb(135,103,215))
+  );
+  background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(54,20,176) 0%,
+    rgb(135,103,215) 100%
+  );
+}
+
+ul {
+  list-style: none;
+  padding: 5px;
+}
+
+ul li a {
+  color: #3714B0;
+  text-decoration: none;
+  font-size: 10pt;
+}

@@ -1,0 +1,260 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  font-size: 11pt;
+}
+
+ul {
+  margin-left: 20px;
+}
+
+body {
+  font-family: "Helvetica";
+}
+
+h1 {
+  color: white;
+  padding: 5px;
+  font-size: 14pt;
+  
+  border-bottom: 1px solid black;
+  background: #3714B0;
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0, rgb(54,20,176)),
+    color-stop(1, rgb(135,103,215))
+  );
+  background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(54,20,176) 0%,
+    rgb(135,103,215) 100%
+  );
+}
+
+h2 {
+  font-size: 12pt;
+}
+
+h3 {
+  font-size: 11pt;
+}
+
+h4 {
+  font-size: 11pt;
+}
+
+h5 {
+  font-size: 11pt;
+  font-weight: normal;
+  text-decoration: underline;
+}
+
+.example {
+  overflow: auto;
+}
+
+.codeRay {
+  font-family: monospace;
+  font-size: 9pt;
+}
+
+.response .example, .response .headers, .request .example, .request .headers
+.response .content, .request .content {
+  padding: 3px;
+}
+
+.object h2 {
+  display: block;
+}
+
+.resources {}
+
+.resource {
+  margin: 10px;
+}
+
+.resources {
+}
+
+.resources .resource h2 {
+  padding: 3px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #efefef;
+}
+
+.resources .resource h2 .method {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+  background: white;
+  color: #866FD7;
+}
+
+.resources .resource h2 .path {
+}
+
+.resources .resource h2 .path .parameter {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+  background: white;
+  margin-left: 3px;
+  margin-right: 3px;
+  color: #866FD7;
+}
+
+.resources .resource p {
+  padding: 3px;
+}
+
+.resources .resource .request h3, .resources .resource .response h3 {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 3px;
+  color: white;
+  border-radius: 4px 4px 0px 0px;
+  -moz-border-radius: 4px 4px 0px 0px;
+  -webkit-border-radius: 4px 4px 0px 0px;
+  background: #ccc;
+}
+
+.resources .resource .response h3 .ok {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+  background: white;
+  color: #0ACF00;
+}
+
+.resources .resource .response h3 .warn {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+  background: white;
+  color: #FD0006;
+}
+
+.resources .resource .response h3 .error {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+  background: white;
+  color: #FD0006;
+}
+
+.field, .object .description, .object .example {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  margin: 3px;
+  padding: 3px;
+  background: #efefef;
+}
+
+.field .name {
+  padding: 3px;
+  
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  
+  background: #2D9B27;
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0, #078600),
+    color-stop(1, #2D9B27)
+  );
+  background-image: -moz-linear-gradient(
+    center bottom,
+    #078600 0%,
+    #2D9B27 100%
+  );
+}
+
+.message {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background: #efefef;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+.message > div {
+  margin: 3px;
+}
+
+.field .name .default {
+  float: right;
+}
+
+.field .name .default span {
+  font-weight: bolder;
+}
+
+.field .name .type {
+  font-weight: bolder;
+}
+
+.field .name .name {
+  font-family: monospace;
+}
+
+.field .name a, 
+.field .name a:hover, 
+.field .name a:active, 
+.field .name a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.field .name .optional {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+  background: white;
+  color: #0ACF00;
+  float: right;
+}
+
+.field .example {
+  margin-top: 3px;
+  padding: 3px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.field .example span {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+  background: white;
+  color: #0ACF00;
+  float: right;
+}
