@@ -98,11 +98,15 @@ elsif dir = options[:create]
   FileUtils.mkdir_p(new_dir)
   FileUtils.cp_r(Dir[File.expand_path(File.join(project_root, "example", "*"))], 
                  new_dir)
-else
+elsif Dir[File.join(options[:workspace], "**", "*.rb")].any?
   begin
     APISpec::Generator.new(options).start!
   rescue APISpec::Namespace::ReferenceError => ex
     STDERR.puts ex.message
     exit 4
   end
+else
+  STDERR.puts "There are no files to generate a documentation from!"
+  STDERR.puts parser.help
+  exit 5
 end
