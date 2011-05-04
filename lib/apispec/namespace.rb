@@ -29,8 +29,8 @@ class APISpec::Namespace < APISpec::Node
     path_parts = path.split(".")
     node = self
     while path_parts.any?
-      node = node.find_node(path_parts.shift)
-      raise ReferenceError.new("#{path} not found in #{self.to_s}") unless node
+      part = path_parts.shift
+      node = node.find_node(part)
     end
     node
   end
@@ -57,7 +57,26 @@ class APISpec::Namespace < APISpec::Node
   end
   
   def find_node(name)
-    @nodes[name]
+    node = @nodes[name]
+    if node
+      node
+    else
+      similar_node = self.find_similar_node(name)
+      if similar_node
+        raise ReferenceError.new("#{name} not found in #{self.to_s}, maybe you meant #{similar_node} (case-sensitive!)")
+      else
+        raise ReferenceError.new("#{name} not found in #{self.to_s}")
+      end
+    end
+  end
+  
+  def find_similar_node(name)
+    @nodes.each do |node_name,node_value|
+      if node_name.downcase == name.downcase
+        return node_name
+      end
+    end
+    nil
   end
     
   def to_s
