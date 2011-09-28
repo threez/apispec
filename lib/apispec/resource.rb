@@ -23,7 +23,7 @@ class APISpec::Resource
   end
   
   def highlighted_path
-    "#{@interface.base_uri}/#{@path}".gsub(/:[^\/0-9][^\/]*/) do |value|
+    "#{@interface.base_uri}/#{@path}".gsub(/:[^\/0-9][^\/&\?]*/) do |value|
       "<span class=\"parameter\">#{value}</span>"
     end
   end
