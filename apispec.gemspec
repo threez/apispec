@@ -12,9 +12,9 @@ Gem::Specification.new do |s|
   s.description = "A documentation generator for http/rest"
   
   dependencies = [
-    [:runtime,     "RedCloth", "~> 4.2.7"],
-    [:runtime,     "coderay",  "~> 0.9.7"],
-    [:development, "rspec",    "~> 2.1"],
+    [:runtime,     "RedCloth"],
+    [:runtime,     "coderay"],
+    [:development, "rspec"],
   ]
   
   s.files         = Dir['**/*']
