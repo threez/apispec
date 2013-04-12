@@ -1,13 +1,14 @@
 PATH
   remote: .
   specs:
-    apispec (0.0.3)
+    apispec (0.0.4)
       RedCloth
       coderay
 
 GEM
   remote: https://rubygems.org/
   specs:
+    RedCloth (4.2.9)
     RedCloth (4.2.9-java)
     coderay (1.0.9)
     diff-lcs (1.2.2)
@@ -22,6 +23,7 @@ GEM
 
 PLATFORMS
   java
+  ruby
 
 DEPENDENCIES
   apispec!

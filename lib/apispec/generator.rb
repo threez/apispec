@@ -4,7 +4,7 @@ require "fileutils"
 class APISpec::Generator
   attr_reader :namespace, :logger
   
-  def initialize(options)
+  def initialize(options = {})
     @options = options
     # logging
     @logger = Logger.new(STDOUT)
