@@ -1,6 +1,3 @@
 module APISpec
-  TINY = 4
-  MINOR = 0
-  MAJOR = 0
-  VERSION = [MAJOR, MINOR, TINY].join(".")
+  VERSION = "0.1.0"
 end
